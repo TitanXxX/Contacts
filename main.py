@@ -1,6 +1,22 @@
-from ContactsLib import Contacts, Person
+'''
+Программа "Телефонный справочник" для создания, удаления, изменения, поиска контактов в телефонном справочнике(текстовый файл).
 
-print("Created by Gusev Sergey(2023)")
+Пакет ContactsLib включает в себя классы Contacts и Person для работы с контактами.
+
+Gusev Sergey [https://ev1l.site/]
+sergey_gusev_007@mail.ru/titanx@internet.ru
+'''
+
+from ContactsLib import Contacts, Person
+__author__ = "Gusev Sergey"
+try:
+    from .version import version
+except ImportError:
+    version = "0.0.0"
+
+__version__ = version
+
+print("Created by " + __author__)
 
 contacts: Contacts = Contacts("contacts.data")
 start_index: int = 0
@@ -10,6 +26,14 @@ size: int = 20
 
 
 def View(view_contacts = contacts):
+	'''Выводит переданный фукнции список
+ 	Перелистывание реализовано переменной start_index
+ 	
+ 	Parameters
+        ----------
+        view_contacts : list, Contacts
+        	Список контактов
+	'''
 	symbol: str = "_" if (view_contacts == contacts) else "+"
 	print(symbol * (len(columns) * 23 - 3))
 	for i in range(len(columns)):
@@ -32,6 +56,8 @@ def View(view_contacts = contacts):
 	print(symbol * (len(columns) * 23 - 3))
 
 def Create():
+	'''Добавляет контакт в contacts: Contacts
+	'''
 	global contacts
 	data: list[str] = []
 	abort_flag: bool = False
@@ -56,6 +82,8 @@ def Create():
 	print("Контакт успешно добавлен.")
 
 def Delete():
+	'''Удаляет контакт из contacts: Contacts
+	'''
 	global contacts
 	while(True):
 		index = input("Введите Id для удаления:")
@@ -75,6 +103,8 @@ def Delete():
 			print("Введено неверное значение.")
 
 def Edit():
+	'''Изменяет контакт в contacts: Contacts
+ 	'''
 	global contacts
 	while(True):
 		index = input("Введите Id для изменения:")
@@ -106,6 +136,8 @@ def Edit():
 			print("Введено неверное значение.")
 
 def Search():
+	'''Выполняет поиск контактов из contacts: Contacts
+	'''
 	print("Введите пустую строку если не хотите использовать поле при поиске.")
 	data = [""] * (len(columns) - 1)
 	for i in range(1, len(columns)):
@@ -142,11 +174,20 @@ def Search():
 			print("Введено неверное значение.")
 
 def Next(END: int = len(contacts)):
+	'''Перелистывает страницу вперёд
+ 
+ 	Parameters
+        ----------
+        END: int
+        	Длина списка(по умолчанию contacts: Contacts)
+ 	'''
 	global start_index
 	start_index += size
 	start_index = min(start_index , END)
 	start_index = start_index // size * size
 def Prev():
+	'''Перелистывает страницу назад
+ 	'''
 	global start_index
 	start_index -= size
 	start_index = max(start_index , 0)
