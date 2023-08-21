@@ -6,6 +6,13 @@ Gusev Sergey [https://ev1l.site/]
 sergey_gusev_007@mail.ru/titanx@internet.ru
 '''
 from os import path
+__author__ = "Gusev Sergey"
+try:
+    from .version import version
+except ImportError:
+    version = "0.0.0"
+
+__version__ = version
 
 class Person():
 	'''
